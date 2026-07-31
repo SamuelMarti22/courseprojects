@@ -1,4 +1,6 @@
 import type { Request, Response } from 'express';
+import { books } from '../data/Books.js';
+import { Book } from '../models/Book.js';
 
 export class HomeController {
     static index(req: Request, res: Response): void {
@@ -20,5 +22,21 @@ export class HomeController {
         viewData["title"] = "Contact";
 
         res.render('home/contact', { viewData: viewData });
+    }
+
+    static books(req: Request, res: Response) {
+        const viewData: { [key: string]: any } = {};
+        viewData["books"] = books;
+        viewData["title"] = "Books"
+        res.render('home/books', { viewData: viewData });
+    }
+
+    static show(req: Request<{id:string}>, res: Response) {
+        const book = Book.findById(books, parseInt(req.params.id));
+        const viewData: { [key: string]: any } = {};
+        viewData["book"] = book;
+        viewData["title"] = book.getTitle();
+
+        res.render('home/show', { viewData: viewData })
     }
 }
