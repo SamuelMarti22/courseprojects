@@ -24,14 +24,15 @@ export class HomeController {
         res.render('home/contact', { viewData: viewData });
     }
 
-    static books(req: Request, res: Response) {
+    static books(req: Request, res: Response): void {
         const viewData: { [key: string]: any } = {};
         viewData["books"] = books;
-        viewData["title"] = "Books"
+        viewData["title"] = "Books";
+
         res.render('home/books', { viewData: viewData });
     }
 
-    static show(req: Request<{id:string}>, res: Response) {
+    static show(req: Request<{ id: string }>, res: Response): void {
         const book = Book.findById(books, parseInt(req.params.id));
         const viewData: { [key: string]: any } = {};
         viewData["book"] = book;
