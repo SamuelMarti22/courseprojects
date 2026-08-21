@@ -16,7 +16,14 @@ export class BookService {
     useBookStore().books.push({ id, ...book });
   }
 
-  static deleteLastBook(): void{
+  static deleteLastBook(): void {
     useBookStore().books.pop();
+  }
+
+  public static getUniqueBookCategories(): string[] {
+    const books = BookService.getBooks();
+    const categories = books.map((book) => book.category);
+    const uniqueCategories = new Set(categories);
+    return Array.from(uniqueCategories);
   }
 }

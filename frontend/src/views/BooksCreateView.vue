@@ -9,7 +9,7 @@ const price = ref(0);
 const stock = ref(0);
 const successMessage = ref('');
 
-function submitForm() {
+function submitForm(): void {
     const newBook: CreateBookDTO = {
         title: title.value,
         category: category.value,

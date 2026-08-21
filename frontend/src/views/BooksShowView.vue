@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import BookReviews from '@/components/BookReviews.vue';
 import { BookService } from '@/services/BookService.js';
 import { useRoute } from 'vue-router';
+import { Formatter } from '@/services/FormatService';
 
 const route = useRoute();
 const bookId = Number(route.params.id);
 const book = BookService.getBookById(bookId);
+
 </script>
 
 <template>
@@ -15,11 +18,8 @@ const book = BookService.getBookById(bookId);
           <div class="bg-white rounded-lg shadow-md p-8 mb-8">
             <div class="flex items-start space-x-8">
               <div>
-                <img
-                  src="https://picsum.photos/seed/picsum/536/354"
-                  alt="Book Cover"
-                  class="object-cover rounded shadow-sm w-72 h-auto"
-                />
+                <img src="https://picsum.photos/seed/picsum/536/354" alt="Book Cover"
+                  class="object-cover rounded shadow-sm w-72 h-auto" />
               </div>
               <div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ book.title }}</h2>
@@ -52,7 +52,7 @@ const book = BookService.getBookById(bookId);
                 </div>
                 <div class="flex justify-between">
                   <span class="text-gray-600">Price:</span>
-                  <span class="font-medium">${{ book.price }}</span>
+                  <span class="font-medium">${{ Formatter.formatPriceToCOP(book.price) }} COP</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-gray-600">Stock:</span>
@@ -62,6 +62,9 @@ const book = BookService.getBookById(bookId);
                 </div>
               </div>
             </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+            <BookReviews :book-id="book.id" />
           </div>
         </div>
       </div>
